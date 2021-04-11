@@ -1,6 +1,9 @@
+import "./db";
 import app from "./app";
-
-const PORT = 4000;
+import dotenv from "dotenv";
+dotenv.config();
+import "./models/Video";
+const PORT = process.env.PORT;
 
 const handleListening = () => console.log(`PORT : ${PORT} 응답 대기중 ... `);
 
