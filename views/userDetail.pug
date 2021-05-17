@@ -1,5 +1,49 @@
 extends layouts/main
+include mixins/videoBlock
 
 block content
-	p userDetail
-	
+	.user-profile
+		.user-profile-header
+			img.avatar(src=user.avatarUrl)
+			.user_container
+				h4.profile__username=user.name
+				h4.user_subscriber 0명
+			if loggedUser
+				if user.id === loggedUser.id
+					.user-profile__bts
+						a(href=`/users${routes.editProfile}`)
+							button Edit Profile
+						a(href=`/users${routes.changePassword}`)
+							button Change Password
+		.user_profile-menu
+			ul.profile-menu
+				li
+					a(href="#")
+						span 홈
+				li
+					a(href="#")
+						span 동영상
+				li
+					a(href="#")
+						span 재생목록
+				li
+					a(href="#")
+						span 채널
+				li
+					a(href="#")
+						span 토론
+				li
+					a(href="#")
+						span 정보
+				li
+					a(href="#")
+						span 서칭	
+		.user-profile-body
+			.home-videos
+				each item in user.videos
+					+videoBlock({
+						id:item.id,
+						title: item.title,
+						views: item.views,
+						videoFile: `/${item.fileUrl}`
+					})
